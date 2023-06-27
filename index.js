@@ -31,9 +31,7 @@ function themNhanVien() {
     var value = document.getElementById(arrAttribute[i]).value;
     nVien[arrAttribute[i]] = value;
   }
-  if (arrNhanVien.length >= 1) {
-    valid &= checkTrungTaiKhoan(nVien, arrNhanVien);
-  }
+
   valid &=
     checkDinhDangTaiKhoan("tknv", "tbTKNV") &
     checkTenNhanVien("name", "tbTen") &
@@ -41,6 +39,9 @@ function themNhanVien() {
     checkPassword("password", "tbMatKhau") &
     checkLuongCB("luongCB", "tbLuongCB") &
     checkGioLam("gioLam", "tbGiolam");
+  if (arrNhanVien.length >= 1) {
+    valid &= checkTrungTaiKhoan(nVien, arrNhanVien);
+  }
   if (valid) {
     arrNhanVien.push(nVien);
     renderNhanVien();
@@ -59,8 +60,8 @@ function themNhanVien() {
 }
 
 document.getElementById("btnThem").onclick = function () {
-  document.getElementById("SapXepTang").style.display = "none"
-  document.getElementById("SapXepGiam").style.display = "none"
+  document.getElementById("SapXepTang").style.display = "none";
+  document.getElementById("SapXepGiam").style.display = "none";
   // tránh việc khi input bị sai ở nút sửa, rồi t ấn nút thêm nhân viên lại thì hiện lỗi
   for (var i = 0; i < arrTb.length; i++) {
     document.getElementById(arrTb[i]).style.display = "none";
@@ -108,7 +109,9 @@ function renderNhanVien() {
                       Bạn có chắc chắn muốn xóa thông tin người này ?
                     </div>
                     <div class="modal-footer">
-                      <button onclick="xoaNhanVien('${new_NV_LayPT.tknv}')" type="button" class="btn btn-primary data-bs-dismiss="modal">Chắc chắn</button>
+                      <button onclick="xoaNhanVien('${
+                        new_NV_LayPT.tknv
+                      }')" type="button" class="btn btn-primary data-bs-dismiss="modal">Chắc chắn</button>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
                     </div>
                   </div>
@@ -153,8 +156,8 @@ function xoaNhanVien(taiKhoan) {
 }
 
 function layThongTinNhanVien(taiKhoan) {
-  document.getElementById("SapXepTang").style.display = "none"
-  document.getElementById("SapXepGiam").style.display = "none"
+  document.getElementById("SapXepTang").style.display = "none";
+  document.getElementById("SapXepGiam").style.display = "none";
   for (var i = 0; i < arrTb.length; i++) {
     document.getElementById(arrTb[i]).style.display = "none";
   }
