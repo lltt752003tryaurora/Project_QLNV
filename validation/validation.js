@@ -24,7 +24,7 @@ function checkDinhDangTaiKhoan(idInput, idTb) {
   var regrexTK = /^[0-9]{4,8}$/;
   var valInput = document.getElementById(idInput).value;
   if (!valInput.match(regrexTK) && valInput != "") {
-    document.getElementById(idTb).style.display = "inline-block";
+    document.getElementById(idTb).style.display = "block";
     document.getElementById(idTb).innerHTML =
       "Vui lòng nhập đúng tài khoản có 4 đến 6 kí tự là số";
     return false;
@@ -40,11 +40,11 @@ function checkTrungTaiKhoan(nVien, arrNhanVien) {
   for (var i = 0; i < arrNhanVien.length; i++) {
     if (nVien.tknv === arrNhanVien[i].tknv && valInput != "") {
       console.log("đã tồn tại");
-      document.getElementById("tbTKNV").style.display = "inline-block";
+      document.getElementById("tbTKNV").style.display = "block";
       document.getElementById("tbTKNV").innerHTML = "Tài khoản đã tồn tại";
       return false;
     } else if (!(nVien.tknv === arrNhanVien[i].tknv) && valInput != "") {
-      document.getElementById("tbTKNV").innerHTML = "";
+      //document.getElementById("tbTKNV").innerHTML = "";
       return true;
     }
   }
