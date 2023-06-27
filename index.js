@@ -23,6 +23,7 @@ var arrTb = [
 ];
 
 function themNhanVien() {
+  event.preventDefault();
   var nVien = new NhanVien();
   var valid = true;
   for (var i = 0; i < arrAttribute.length; i++) {
@@ -31,7 +32,7 @@ function themNhanVien() {
     nVien[arrAttribute[i]] = value;
   }
   if (arrNhanVien.length >= 1) {
-    valid &= checkTrungTaiKhoan(nVien, arrNhanVien, arrTb);
+    valid &= checkTrungTaiKhoan(nVien, arrNhanVien);
   }
   valid &=
     checkDinhDangTaiKhoan("tknv", "tbTKNV") &
@@ -76,7 +77,10 @@ document.getElementById("btnThemNV").onclick = themNhanVien;
 
 function renderNhanVien() {
   var content = "";
+  //index_btn: để chèn vào id modal để xác định chính xác id cần xóa cần trỏ tới (nếu không có thì khi ta xóa mặc định là xóa phần tử đầu)
+  var index_btn = -1;
   for (var i = 0; i < arrNhanVien.length; i++) {
+    index_btn++;
     var nVien = arrNhanVien[i];
     var new_NV_LayPT = new NhanVien();
     // copy data nVien for new_NV_LayPT
@@ -96,17 +100,15 @@ function renderNhanVien() {
               <th>${formatLuong}</th>
               <th>${new_NV_LayPT.XepLoai()}</th>
               <th> 
-              <button type="button" class="btn btn-danger text-center mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">Xóa</button>
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <button type="button" class="btn btn-danger text-center mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal${index_btn}">Xóa</button>
+              <div class="modal fade" id="exampleModal${index_btn}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-body text-danger">
                       Bạn có chắc chắn muốn xóa thông tin người này ?
                     </div>
                     <div class="modal-footer">
-                      <button onclick="xoaNhanVien('${
-                        new_NV_LayPT.tknv
-                      }')" type="button" class="btn btn-primary data-bs-dismiss="modal">Chắc chắn</button>
+                      <button onclick="xoaNhanVien('${new_NV_LayPT.tknv}')" type="button" class="btn btn-primary data-bs-dismiss="modal">Chắc chắn</button>
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
                     </div>
                   </div>
@@ -144,6 +146,7 @@ function xoaNhanVien(taiKhoan) {
       index = i;
     }
   }
+  console.log(taiKhoan);
   arrNhanVien.splice(index, 1);
   renderNhanVien();
   luuLocal();
@@ -301,7 +304,9 @@ document.getElementById("btnSapXepTangTheoTK").onclick = function () {
 
 // Sắp xếp giảm theo tài khoản
 document.getElementById("btnSapXepGiamTheoTK").onclick = function () {
+  // mỗi tr là mỗi dòng
   var arrNV = document.querySelectorAll("#tableDanhSach tr");
+  console.log(arrNV);
   for (var i = 0; i < arrNV.length - 1; i++) {
     for (var j = i + 1; j < arrNV.length; j++) {
       var diemi = arrNV[i].querySelector(".taikhoan").innerHTML * 1;
