@@ -43,11 +43,10 @@ function checkTrungTaiKhoan(nVien, arrNhanVien) {
       document.getElementById("tbTKNV").style.display = "block";
       document.getElementById("tbTKNV").innerHTML = "Tài khoản đã tồn tại";
       return false;
-    } else if (!(nVien.tknv === arrNhanVien[i].tknv) && valInput != "") {
-      //document.getElementById("tbTKNV").innerHTML = "";
-      return true;
     }
   }
+  //document.getElementById("tbTKNV").innerHTML = "";
+  return true;
 }
 
 //check tên nhân viên phải là chữ
